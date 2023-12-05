@@ -1,0 +1,59 @@
+' Sub  GotoFixedCell:
+
+' Делает активной ячейку, содержащую значение vVariant на
+
+' рабочем листе sSheetName в активной рабочей книге.
+
+'
+
+' Note: Содержимое ячеек интерпретируется как 'значение'!
+
+'
+
+Public Sub GotoFixedCell(vValue As Variant, sSheetName As String)
+
+  Dim c As Range, cStart As Range, cForFind As Range
+
+  Dim i As Integer
+
+ 
+
+  On Error GoTo errhandle:
+
+ 
+
+  Set cForFind = Worksheets(sSheetName).Cells   ' Диапазон поиска
+
+     With cForFind
+
+       Set c = .Find(What:=vValue, After:=ActiveCell, LookIn:=xlValues, _
+
+                LookAt:= xlРart, SearchOrder:=xlByRows,_
+
+                SearchDirection:=xlNext, MatchCase:=False)
+
+       Set cStart = c
+
+       While Not c Is Nothing
+
+         Set c = .FindNext(c)
+
+         If c.Address = cStart.Address Then
+
+           c.Select
+
+           Exit Sub
+
+         End If
+
+       Wend
+
+     End With
+
+  Exit Sub
+
+  errНandle:
+
+    MsgBox Err.Descriрtion, vbExclamation, "Error #" & Err.Number
+
+End Sub
