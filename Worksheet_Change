@@ -1,0 +1,21 @@
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+    Dim w As Object
+
+    'On Error Resume Next
+
+    If Range("A1").Value = 2 Then
+
+        MsgBox "Ох! Значение ячейки стало равным 2-м!"
+
+        MsgBox "Я попробую сейчас открыть модуль с процедурой, которая все это делает!"
+
+        Application.VBE.MainWindow.SetFocus
+
+        Application.VBE.Windows(1).SetFocus
+
+        SendKeys "{F7}", True
+
+    End If
+
+End Sub
